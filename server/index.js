@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const db = require("./models");
 const cors = require("cors");
 const errorHandler = require("./controllers/error");
 const authRoutes = require("./routes/auth");
@@ -20,6 +21,16 @@ app.use(
   ensureCorrectUser,
   messagesRoutes
 );
+app.get("/api/messages", loginRequired, async function (req, res, next) {
+  try {
+    let messages = await db.Message.find()
+      .sort({ createdAt: "desc" })
+      .populate("User", { username: true, profileImageUrl: true });
+    return res.status(200).json(messages);
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.use((req, res, next) => {
   let err = new Error("Not Found");
