@@ -4,6 +4,7 @@ const cors = require("cors");
 const errorHandler = require("./controllers/error");
 const authRoutes = require("./routes/auth");
 const messagesRoutes = require("./routes/messages");
+const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 
 const app = express();
 
@@ -13,7 +14,12 @@ app.use(express.json(), cors());
  * Routes
  */
 app.use("/api/auth", authRoutes);
-app.use("/api/users/:id/messages", messagesRoutes);
+app.use(
+  "/api/users/:id/messages",
+  loginRequired,
+  ensureCorrectUser,
+  messagesRoutes
+);
 
 app.use((req, res, next) => {
   let err = new Error("Not Found");
