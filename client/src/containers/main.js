@@ -5,7 +5,7 @@ import Homepage from "../components/homepage";
 
 function Main(props) {
   return (
-    <div className="container">
+    <div className="Main">
       <Switch>
         <Route exact path="/" render={(props) => <Homepage {...props} />} />
       </Switch>
@@ -19,4 +19,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, null))(Main);
+export default withRouter(connect(mapStateToProps, null)(Main));
