@@ -42,7 +42,7 @@ app.use(errorHandler);
 /**
  * Start Server
  */
-const PORT = 3000;
+const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`Servr started at port ${PORT}`);
 });
