@@ -21,14 +21,16 @@ const User = new mongoose.Schema({
   },
 });
 
-User.pre("save", async (next) => {
+// @ts-ignore
+User.pre("save", async function (next) {
   try {
     // @ts-ignore
-    if (!this.isModified("password")) {
+    if (!this.isModified()) {
       return next();
     }
     // @ts-ignore
     let hashedPassword = await bcrypt.hash(this.password, 10);
+    // @ts-ignore
     this.password = hashedPassword;
     return next();
   } catch (err) {
@@ -39,6 +41,7 @@ User.pre("save", async (next) => {
 // @ts-ignore
 User.method.comparePassword = async (candidatePassword, next) => {
   try {
+    // @ts-ignore
     let isMatch = await bcrypt.compare(candidatePassword, this.password);
     return isMatch;
   } catch (err) {

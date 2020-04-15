@@ -7,5 +7,8 @@ mongoose.connect("mongodb://localhost:27017/raven", {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useMongoClient: true,
 });
+
+module.exports = {
+  User: require("./user"),
+};
