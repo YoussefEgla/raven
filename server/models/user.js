@@ -38,15 +38,15 @@ User.pre("save", async function (next) {
   }
 });
 
-// @ts-ignore
-User.method.comparePassword = async (candidatePassword, next) => {
-  try {
-    // @ts-ignore
-    let isMatch = await bcrypt.compare(candidatePassword, this.password);
-    return isMatch;
-  } catch (err) {
-    return next(err);
-  }
-};
+// // @ts-ignore
+// User.method.comparePassword = async (candidatePassword, next) => {
+//   try {
+//     // @ts-ignore
+//     let isMatch = await bcrypt.compare(candidatePassword, this.password);
+//     return isMatch;
+//   } catch (err) {
+//     return next(err);
+//   }
+// };
 
 module.exports = mongoose.model("User", User);
