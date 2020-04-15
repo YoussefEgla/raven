@@ -19,6 +19,12 @@ const User = new mongoose.Schema({
   profileImageUrl: {
     type: String,
   },
+  messages: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
+  ],
 });
 
 // @ts-ignore
