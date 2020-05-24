@@ -1,4 +1,5 @@
-import express from "express";
+import express, { request } from "express";
+import reqLogger from "morgan";
 import cors from "cors";
 import { Errors } from "./middleware/";
 import { errorsController } from "./controllers";
@@ -9,7 +10,12 @@ const server = express();
 /**
  * Global middleware
  */
-server.use(express.json(), express.urlencoded({ extended: true }), cors());
+server.use(
+  reqLogger("common"),
+  cors(),
+  express.json(),
+  express.urlencoded({ extended: true })
+);
 
 /**
  * Application Routes
