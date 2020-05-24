@@ -6,7 +6,7 @@ import { errorsController } from "./controllers";
 
 // init application
 const server = express();
-
+import "./models";
 /**
  * Global middleware
  */
