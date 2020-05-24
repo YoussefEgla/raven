@@ -1,8 +1,11 @@
-import express, { request } from "express";
+require("dotenv").config();
+
+import express from "express";
 import reqLogger from "morgan";
 import cors from "cors";
 import { Errors } from "./middleware/";
 import { errorsController } from "./controllers";
+import * as router from "./routes";
 
 // init application
 const server = express();
@@ -20,6 +23,7 @@ server.use(
 /**
  * Application Routes
  */
+server.use("/api/auth", router.authRouter);
 
 /**
  * Don't add routes below 404

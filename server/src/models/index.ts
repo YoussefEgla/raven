@@ -8,6 +8,7 @@ mongoose
     keepAlive: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   })
   .then(() => {
     console.log(`Connected to MongoDB successfully`);
@@ -16,3 +17,5 @@ mongoose
     console.log(err);
     process.exit(1);
   });
+
+export { default as Account } from "./account";
