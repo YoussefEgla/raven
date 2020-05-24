@@ -1,1 +1,1 @@
-export { errorController } from "./error";
+export { errorsController } from "./error";

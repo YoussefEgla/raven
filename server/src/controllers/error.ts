@@ -1,7 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import { Errors } from "../middleware/";
 
-export const errorController = (
+/**
+ *
+ * Errors controller is responsible for handling
+ * errors that occur while processing data and
+ * send informative response to client while
+ * providing real error cause for logging
+ *
+ */
+export const errorsController = (
   err: Error,
   req: Request,
   res: Response,
