@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
@@ -19,15 +20,44 @@ export const signup = async (
     const user = await Account.create(req.body);
     const { email, id, username } = user;
     const token = jwt.sign({ id, username, email }, SECRET_KEY);
-    console.log("executing");
     return res.status(201).json({ id, username, email, token }).end();
   } catch (err) {
     if (err.code === 11000) {
-      console.log(err);
-      return next(new Error("Duplicate key error"));
+      return next(new Error(err));
     } else {
-      console.log(err);
       return next(err);
     }
+  }
+};
+
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    // finding a user
+    const user = await Account.findOne({
+      email: req.body.email,
+      username: req.body.username,
+    });
+    if (user === null) {
+      return res.status(404).json({ errors: "user not found" });
+    }
+
+    // check if password matches
+    let isMatch = await user?.comparePassword(req.body.password, next);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const { id, username, email } = user;
+    let token = jwt.sign({ id, username, email }, SECRET_KEY);
+
+    // if password matches log them in
+    res.status(202).json({ id, username, email, token });
+  } catch (err) {
+    // handle errors
+    next(err);
   }
 };

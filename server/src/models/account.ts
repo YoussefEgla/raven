@@ -13,10 +13,16 @@ import { HookNextFunction } from "mongoose";
   }
 })
 class Account {
-  @prop({ required: true, unique: true })
+  @prop({ required: true, unique: true, lowercase: true, trim: true })
   username!: string;
 
-  @prop({ required: true, unique: true })
+  @prop({
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
+    validate: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  })
   email!: string;
 
   @prop({ required: true })
