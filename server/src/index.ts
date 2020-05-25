@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import reqLogger from "morgan";
 import cors from "cors";
 import { Errors, auth } from "./middleware/";
@@ -9,7 +9,7 @@ import * as router from "./routes";
 
 // init application
 const server = express();
-import "./models";
+import { Message } from "./models";
 /**
  * Global middleware
  */
@@ -30,7 +30,22 @@ server.use(
   auth.authenticate,
   router.messagesRouter
 );
+server.get(
+  "/api/messages",
+  auth.authorize,
+  auth.authenticate,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const messages = Message.find()
+        .sort({ createdAt: "desc" })
+        .populate("Accounts", { username: true, profileImageUrl: true });
 
+      return res.status(200).json(messages).end();
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 /**
  * Don't add routes below 404
  */

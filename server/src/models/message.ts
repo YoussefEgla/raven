@@ -22,10 +22,16 @@ class Message {
   @prop({ required: true, maxlength: 160 })
   text!: string;
 
+  @prop()
+  profileImageUrl?: string;
+
   @prop({ ref: "Accounts" })
   account!: mongoose.Schema.Types.ObjectId;
 }
 
 export default getModelForClass(Message, {
-  schemaOptions: { collection: "Messages" },
+  schemaOptions: {
+    collection: "Messages",
+    timestamps: true,
+  },
 });

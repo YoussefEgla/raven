@@ -27,3 +27,41 @@ export const createMessage = async (
     next(err);
   }
 };
+
+export const getMessage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const message = await Message.findById(req.params.message_id);
+    if (message === null) {
+      res.status(404);
+      return next(new Error("Message doesn't exist"));
+    }
+
+    res.status(200).json(message);
+    next();
+  } catch (err) {
+    return next(err);
+  }
+};
+
+export const deleteMessage = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const message = await Message.findById(req.params.message_id);
+    if (message === null) {
+      res.status(404);
+      return next(new Error("Message doesn't exist"));
+    }
+    message.remove();
+    res.status(200).json(message);
+    next();
+  } catch (err) {
+    return next(err);
+  }
+};
