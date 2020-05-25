@@ -24,6 +24,7 @@ server.use(
  * Application Routes
  */
 server.use("/api/auth", router.authRouter);
+server.use("/api/users/:id/messages", router.messagesRouter);
 
 /**
  * Don't add routes below 404

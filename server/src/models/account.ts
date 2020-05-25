@@ -38,7 +38,7 @@ class Account {
   profileImageUrl?: string;
 
   @arrayProp({ ref: "Messages" })
-  messages?: mongoose.Schema.Types.ObjectId[];
+  messages: mongoose.Schema.Types.ObjectId[] = [];
 
   async comparePassword(candidatePassword: string, next: HookNextFunction) {
     try {
