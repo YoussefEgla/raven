@@ -37,10 +37,9 @@ export const login = async (
 ) => {
   try {
     // finding a user
-    const user = await Account.findOne({
-      email: req.body.email,
-      username: req.body.username,
-    });
+    const { email } = req.body;
+    const user = await Account.findOne({ email });
+    console.log(user);
     if (user === null) {
       return res.status(404).json({ errors: "user not found" });
     }

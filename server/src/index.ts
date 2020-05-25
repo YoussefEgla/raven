@@ -3,7 +3,7 @@ require("dotenv").config();
 import express from "express";
 import reqLogger from "morgan";
 import cors from "cors";
-import { Errors } from "./middleware/";
+import { Errors, auth } from "./middleware/";
 import { errorsController } from "./controllers";
 import * as router from "./routes";
 
@@ -24,7 +24,12 @@ server.use(
  * Application Routes
  */
 server.use("/api/auth", router.authRouter);
-server.use("/api/users/:id/messages", router.messagesRouter);
+server.use(
+  "/api/users/:id/messages",
+  auth.authorize,
+  auth.authenticate,
+  router.messagesRouter
+);
 
 /**
  * Don't add routes below 404
