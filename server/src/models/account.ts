@@ -1,4 +1,10 @@
-import { prop, getModelForClass, pre } from "@typegoose/typegoose";
+import {
+  prop,
+  getModelForClass,
+  pre,
+  arrayProp,
+  mongoose,
+} from "@typegoose/typegoose";
 import bcrypt from "bcrypt";
 import { HookNextFunction } from "mongoose";
 
@@ -31,6 +37,9 @@ class Account {
   @prop()
   profileImageUrl?: string;
 
+  @arrayProp({ ref: "Messages" })
+  messages?: mongoose.Schema.Types.ObjectId[];
+
   async comparePassword(candidatePassword: string, next: HookNextFunction) {
     try {
       const isMatch = await bcrypt.compare(candidatePassword, this.password);
@@ -41,4 +50,6 @@ class Account {
   }
 }
 
-export default getModelForClass(Account);
+export default getModelForClass(Account, {
+  schemaOptions: { collection: "Accounts" },
+});
