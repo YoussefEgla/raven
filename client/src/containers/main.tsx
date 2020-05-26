@@ -2,11 +2,12 @@ import React from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Homepage from "../components/Homepage";
+import AuthForm from "../components/AuthForm";
 
-const Main = (props: any) => {
+const Main = () => {
   return (
     <div className="container">
-      <switch>
+      <Switch>
         <Route
           exact
           path="/"
@@ -15,7 +16,23 @@ const Main = (props: any) => {
             return <Homepage {...props} />;
           }}
         />
-      </switch>
+        <Route
+          exact
+          path="/login"
+          render={(props) => {
+            //@ts-ignore
+            return <AuthForm text="Login" heading="Welcome Back!" {...props} />;
+          }}
+        />
+        <Route
+          exact
+          path="/signup"
+          render={(props) => {
+            //@ts-ignore
+            return <AuthForm text="Sign up" heading="Join Raven!" {...props} />;
+          }}
+        />
+      </Switch>
     </div>
   );
 };
