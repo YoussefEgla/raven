@@ -2,4 +2,45 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #e6ecf0;
+}
+
+/* Nav */
+.navbar {
+  margin-bottom: 1rem;
+}
+
+.navbar a {
+  font-weight: bold;
+}
+
+.navbar li:hover {
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.navbar-brand > img {
+  display: inline-block;
+  width: 20px;
+  border-radius: 2px;
+  margin-bottom: 2px;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+ul.navbar-nav {
+  margin: 0 0.5rem;
+}
+
+ul.navbar-nav > li {
+  margin: 0 0.5rem;
+}
+ul.navbar-nav > li:hover a {
+  color: white;
+}
+
+.onboarding > .navbar {
+  background-image: url("/nav-bg.png");
+  background-size: 100%;
 }
