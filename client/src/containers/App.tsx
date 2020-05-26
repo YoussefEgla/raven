@@ -1,11 +1,16 @@
 import React from "react";
+import { Provider } from "react-redux";
+import { configureStore } from "../store";
+import { BrowserRouter } from "react-router-dom";
 
-function App() {
+const store = configureStore();
+
+export default () => {
   return (
-    <div className="App">
-      <p>Hello</p>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div>Hello world</div>
+      </BrowserRouter>
+    </Provider>
   );
-}
-
-export default App;
+};
