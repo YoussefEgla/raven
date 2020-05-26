@@ -9,6 +9,12 @@ export default (props: any) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const authType = props.text === "Login" ? "login" : "signup";
+    //@ts-ignore
+    props
+      .onAuth(authType, values)
+      .then(() => console.log("Resolved"))
+      .catch((err: any) => console.log("Rejected"));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

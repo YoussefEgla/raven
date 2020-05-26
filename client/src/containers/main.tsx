@@ -3,8 +3,10 @@ import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Homepage from "../components/Homepage";
 import AuthForm from "../components/AuthForm";
+import { authUser } from "../store/actions/auth";
 
-const Main = () => {
+const Main = (props: any) => {
+  const { authUser } = props;
   return (
     <div className="container">
       <Switch>
@@ -21,7 +23,14 @@ const Main = () => {
           path="/login"
           render={(props) => {
             //@ts-ignore
-            return <AuthForm text="Login" heading="Welcome Back!" {...props} />;
+            return (
+              <AuthForm
+                onAuth={authUser}
+                text="Login"
+                heading="Welcome Back!"
+                {...props}
+              />
+            );
           }}
         />
         <Route
@@ -29,7 +38,14 @@ const Main = () => {
           path="/signup"
           render={(props) => {
             //@ts-ignore
-            return <AuthForm text="Sign up" heading="Join Raven!" {...props} />;
+            return (
+              <AuthForm
+                onAuth={authUser}
+                text="Sign up"
+                heading="Join Raven!"
+                {...props}
+              />
+            );
           }}
         />
       </Switch>
@@ -42,4 +58,4 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps, null)(Main));
+export default withRouter(connect(mapStateToProps, { authUser })(Main));
